@@ -1,0 +1,4 @@
+{"level":"\u001b[34mINFO\u001b[0m","ts":"2022-01-01T22:49:40+08:00","caller":"controller/welcome.go:14","msg":"hello{测试 15 0 zx <nil>}"}
+{"level":"\u001b[34mINFO\u001b[0m","ts":"2022-01-01T22:49:40+08:00","caller":"middlewares/logger.go:24","msg":"/ping{status 11 200  <nil>} {method 15 0 GET <nil>} {path 15 0 /ping <nil>} {query 15 0  <nil>} {ip 15 0 ::1 <nil>} {user-agent 15 0 apifox/1.0.0 (https://www.apifox.cn) <nil>} {errors 15 0  <nil>} {cost 8 34224700  <nil>}"}
+2022-01-01T22:51:08+08:00	INFO	controller/welcome.go:14	hello{测试 15 0 zx <nil>}
+2022-01-01T22:51:08+08:00	INFO	middlewares/logger.go:24	/ping{status 11 200  <nil>} {method 15 0 GET <nil>} {path 15 0 /ping <nil>} {query 15 0  <nil>} {ip 15 0 ::1 <nil>} {user-agent 15 0 apifox/1.0.0 (https://www.apifox.cn) <nil>} {errors 15 0  <nil>} {cost 8 37126800  <nil>}
