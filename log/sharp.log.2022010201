@@ -1,1 +1,0 @@
-2022-01-02T01:21:19+08:00	INFO	middlewares/logger.go:31	host=::1||user-agent=apifox/1.0.0 (https://www.apifox.cn)||cost=496.1µs||traceid=b5282d0aaa1b4d079a01baa516cf9a0f||method=GET||path=/sharp/rd-test/queryCache||req_params=redisKey=sharp_userInfo_123456||req_body=||
