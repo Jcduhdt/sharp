@@ -1,3 +1,5 @@
 .idea/
 .statsd/
 /log/
+/conf/production/
+/.environment/

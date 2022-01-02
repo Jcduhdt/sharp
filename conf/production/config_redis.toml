@@ -1,0 +1,8 @@
+[redis]
+addrs = "101.43.148.119:6379"
+auth = "redissharp"
+
+# unit ms
+conn_timeout = 1000
+read_timeot = 2000
+write_timeout = 2000

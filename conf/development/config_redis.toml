@@ -1,0 +1,8 @@
+[redis]
+addrs = "127.0.0.1:6379"
+auth = "root"
+
+# unit ms
+conn_timeout = 1000
+read_timeot = 2000
+write_timeout = 2000

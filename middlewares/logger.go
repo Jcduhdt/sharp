@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
 	"go.uber.org/zap"
+	"sharp/common/consts"
 	"sharp/common/handler/log"
 	"strings"
 	"time"
@@ -28,6 +29,6 @@ func Logger(logger *zap.SugaredLogger) gin.HandlerFunc {
 			"cost":       time.Since(start),
 		}
 
-		logger.Infof("%s", log.BuildLogByMap(c, logMap))
+		logger.Infof(consts.DLTagComRequestOut, log.BuildLogByMap(c, logMap))
 	}
 }

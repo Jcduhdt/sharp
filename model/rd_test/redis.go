@@ -1,12 +1,22 @@
 package rd_test
 
-func QueryRedisCache(redisKey string) (string,error){
-	return "get redis cache",nil
+import (
+	"context"
+	"encoding/json"
+	"sharp/common/handler/redis"
+)
+
+func QueryRedisCache(ctx context.Context, redisKey string) (string, error) {
+	return redis.GetInfo(ctx, redisKey)
 }
 
-func SetRedisCache(redisKey, value string) (string,error){
-	return "set redis cache",nil
+func SetRedisCache(ctx context.Context, redisKey string, expireTime int, value interface{}) (string, error) {
+	valBytes, err := json.Marshal(value)
+	if err != nil {
+		return "", err
+	}
+	return redis.SetInfoWithEx(ctx, redisKey, expireTime, valBytes)
 }
-func DelRedisCache(redisKey string) (string,error){
-	return "del redis cache",nil
+func DelRedisCache(ctx context.Context, redisKey string) (int, error) {
+	return redis.DelInfo(ctx, redisKey)
 }
