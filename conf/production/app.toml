@@ -1,9 +1,0 @@
-[server]
-port = ":8000"
-
-
-[include]
-configs = [
-    "config_mysql",
-    "config_redis"
-]
