@@ -3,6 +3,8 @@ package conf
 import (
 	"fmt"
 	"github.com/spf13/viper"
+	"path"
+	"runtime"
 	"sharp/common/handler/env"
 )
 
@@ -33,4 +35,13 @@ func InitConf(confPath string) {
 			fmt.Errorf("fatal error config file: %+v,err=%+v", file, err)
 		}
 	}
+}
+
+func FindConfigDir() string {
+	_, thisPath, _, _ := runtime.Caller(0)
+	testDir := path.Dir(thisPath)
+	handlerDir := path.Dir(testDir)
+	commonDir := path.Dir(handlerDir)
+	projectDir := path.Dir(commonDir)
+	return projectDir + "/conf/"
 }

@@ -3,3 +3,4 @@
 /log/
 /conf/production/
 /.environment/
+/dao/log/

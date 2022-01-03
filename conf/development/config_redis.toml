@@ -1,6 +1,6 @@
 [redis]
 addrs = "127.0.0.1:6379"
-auth = "root"
+auth = "sharpredis"
 
 # unit ms
 conn_timeout = 1000
