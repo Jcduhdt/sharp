@@ -75,10 +75,10 @@ func InsertUserInfo(ctx context.Context, ubi UserBaseInsert) (err error) {
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagGetMysqlFailed, log.BuildLogByMap(ctx, logMap))
+			log.Logger.Errorf(consts.DLTagInsertMysqlFailed, log.BuildLogByMap(ctx, logMap))
 			return
 		}
-		log.Logger.Infof(consts.DLTagGetMysqlSuccess, log.BuildLogByMap(ctx, logMap))
+		log.Logger.Infof(consts.DLTagInsertMysqlSuccess, log.BuildLogByMap(ctx, logMap))
 	}()
 
 	tableName := "user_base"

@@ -4,3 +4,4 @@
 /conf/production/
 /.environment/
 /dao/log/
+/tmp/

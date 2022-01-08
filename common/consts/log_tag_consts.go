@@ -14,7 +14,7 @@ const (
 	// 请求入参
 	LogReqParams = "req_params"
 
-	DLTagComRequestIn    = " _com_request_In   %s"
+	DLTagComRequestIn    = " _com_request_in   %s"
 	DLTagComRequestOut   = " _com_request_out   %s"
 	DLTagCommonInfo      = " _common_info    %s"
 	DLTagCommonErrorInfo = " _common_error_info    %s"
