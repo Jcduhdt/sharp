@@ -34,11 +34,10 @@ func Init() {
 	}
 	if err != nil {
 		logMap[consts.LogErrMsg] = err.Error()
-		log.Logger.Fatalf(consts.DLTagInitRedisFailed, log.BuildLogByMap(context.Background(), logMap))
+		log.FatalMap(context.Background(), consts.DLTagInitRedisFailed, logMap)
 		os.Exit(1)
 	}
-
-	log.Logger.Infof(consts.DLTagInitRedisSuccess, log.BuildLogByMap(context.Background(), logMap))
+	log.InfoMap(context.Background(), consts.DLTagInitRedisSuccess, logMap)
 	RedisClient = redisClient
 }
 
@@ -46,17 +45,17 @@ func SetInfoWithEx(ctx context.Context, key string, expireTime int, value interf
 	logMap := map[string]interface{}{
 		consts.LogCallee: "set_info_with_ex",
 		"key":            key,
-		"expire_time":     expireTime,
+		"expire_time":    expireTime,
 		"value":          value,
 	}
 	var err error
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagSetRedisFailed, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagSetRedisFailed, logMap)
 			return
 		}
-		log.Logger.Info(consts.DLTagSetRedisSuccess, log.BuildLogByMap(ctx, logMap))
+		log.InfoMap(ctx, consts.DLTagSetRedisSuccess, logMap)
 	}()
 
 	if expireTime <= 0 {
@@ -82,10 +81,10 @@ func GetInfo(ctx context.Context, key string) (string, error) {
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagGetRedisFailed, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagGetRedisFailed, logMap)
 			return
 		}
-		log.Logger.Info(consts.DLTagGetRedisSuccess, log.BuildLogByMap(ctx, logMap))
+		log.InfoMap(ctx, consts.DLTagGetRedisSuccess, logMap)
 	}()
 
 	start := time.Now()
@@ -107,10 +106,10 @@ func DelInfo(ctx context.Context, key string) (int, error) {
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagDelRedisFailed, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagDelRedisFailed, logMap)
 			return
 		}
-		log.Logger.Info(consts.DLTagDelRedisSuccess, log.BuildLogByMap(ctx, logMap))
+		log.InfoMap(ctx, consts.DLTagDelRedisSuccess, logMap)
 	}()
 
 	start := time.Now()

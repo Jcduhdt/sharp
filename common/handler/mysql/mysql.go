@@ -26,17 +26,17 @@ func Init() {
 	}
 
 	dbClient, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-
 	if err != nil {
 		logMap[consts.LogErrMsg] = err.Error()
-		log.Logger.Fatalf(consts.DLTagInitMysqlFailed, log.BuildLogByMap(context.Background(), logMap))
+		log.FatalMap(context.Background(), consts.DLTagInitMysqlFailed, logMap)
 		os.Exit(1)
 	}
 
 	sqlDB, err := dbClient.DB()
 	if err != nil {
 		logMap[consts.LogErrMsg] = err.Error()
-		log.Logger.Errorf(consts.DLTagCommonErrorInfo, log.BuildLogByMap(context.Background(), logMap))
+		log.FatalMap(context.Background(), consts.DLTagCommonErrorInfo, logMap)
+		os.Exit(1)
 	}
 
 	sqlDB.SetConnMaxLifetime(time.Duration(conf.Viper.GetInt("mysql.conn_max_lifetime")) * time.Second)
@@ -44,5 +44,5 @@ func Init() {
 	sqlDB.SetMaxOpenConns(conf.Viper.GetInt("mysql.max_open_conns"))
 
 	MysqlClient = dbClient
-	log.Logger.Infof(consts.DLTagInitMysqlSuccess, log.BuildLogByMap(context.Background(), logMap))
+	log.InfoMap(context.Background(), consts.DLTagInitMysqlSuccess, logMap)
 }

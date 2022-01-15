@@ -69,6 +69,6 @@ func Logger(logger *zap.SugaredLogger) gin.HandlerFunc {
 			"cost":         time.Since(start),
 		}
 
-		logger.Infof(consts.DLTagComRequestOut, log.BuildLogByMap(c, logMap))
+		log.InfoMap(c, consts.DLTagComRequestOut, logMap)
 	}
 }

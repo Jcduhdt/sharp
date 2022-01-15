@@ -20,7 +20,7 @@ func Login(ctx context.Context, req dto.LoginAndRegisterReq) (bool, error) {
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagCommonErrorInfo, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagCommonErrorInfo, logMap)
 		}
 	}()
 
@@ -49,7 +49,7 @@ func Register(ctx context.Context, req dto.LoginAndRegisterReq) (bool, error) {
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagCommonErrorInfo, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagCommonErrorInfo, logMap)
 		}
 	}()
 
@@ -60,7 +60,7 @@ func Register(ctx context.Context, req dto.LoginAndRegisterReq) (bool, error) {
 
 	err = dao.InsertUserInfo(ctx, userBaseInsert)
 	if err != nil {
-		return false, nil
+		return false, err
 	}
 
 	return true, err

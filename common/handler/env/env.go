@@ -10,6 +10,7 @@ import (
 )
 
 const envFile = ".environment/service.env.txt"
+
 var (
 	cluster = map[string]string{
 		"dev":  "development",

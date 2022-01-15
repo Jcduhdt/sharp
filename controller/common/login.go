@@ -22,7 +22,7 @@ func (lc *LoginController) Login(ctx *gin.Context) {
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagCommonErrorInfo, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagCommonErrorInfo, logMap)
 		}
 		lc.ReturnJSon(ctx, data, err)
 	}()
@@ -47,7 +47,7 @@ func (lc *LoginController) Register(ctx *gin.Context) {
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagCommonErrorInfo, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagCommonErrorInfo, logMap)
 		}
 		lc.ReturnJSon(ctx, data, err)
 	}()

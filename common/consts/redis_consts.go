@@ -4,6 +4,6 @@ const (
 	CommandGet   = "GET"
 	CommandSetEx = "SETEX"
 	CommandDel   = "DEL"
-	CommandMSet   = "MSET"
-	CommandMGet   = "MGET"
+	CommandMSet  = "MSET"
+	CommandMGet  = "MGET"
 )

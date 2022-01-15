@@ -22,10 +22,10 @@ func (rtc *RdTestController) QueryCache(ctx *gin.Context) {
 	var err error
 	var data interface{}
 	defer func() {
-		if err != nil{
+		if err != nil {
 			data = err.Error()
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagCommonErrorInfo, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagCommonErrorInfo, logMap)
 		}
 		rtc.ReturnJSon(ctx, data, err)
 	}()
@@ -38,7 +38,7 @@ func (rtc *RdTestController) QueryCache(ctx *gin.Context) {
 
 	res, err := rd_test.QueryRedisCache(ctx, req.RedisKey)
 
-	if errors.Is(err,redigo.ErrNil){
+	if errors.Is(err, redigo.ErrNil) {
 		data = err.Error()
 		err = nil
 		return
@@ -46,7 +46,6 @@ func (rtc *RdTestController) QueryCache(ctx *gin.Context) {
 
 	data = res
 }
-
 
 func (rtc *RdTestController) DelCache(ctx *gin.Context) {
 	logMap := map[string]interface{}{
@@ -58,7 +57,7 @@ func (rtc *RdTestController) DelCache(ctx *gin.Context) {
 		if err != nil {
 			data = err.Error()
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagCommonErrorInfo, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagCommonErrorInfo, logMap)
 		}
 		rtc.ReturnJSon(ctx, data, err)
 	}()
@@ -75,7 +74,6 @@ func (rtc *RdTestController) DelCache(ctx *gin.Context) {
 	data = res
 }
 
-
 func (rtc *RdTestController) SetCacheWithEx(ctx *gin.Context) {
 	logMap := map[string]interface{}{
 		consts.LogCallee: "set_cache_with_ex",
@@ -86,7 +84,7 @@ func (rtc *RdTestController) SetCacheWithEx(ctx *gin.Context) {
 		if err != nil {
 			data = err.Error()
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagCommonErrorInfo, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagCommonErrorInfo, logMap)
 		}
 		rtc.ReturnJSon(ctx, data, err)
 	}()

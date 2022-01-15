@@ -45,10 +45,10 @@ func GetUserInfo(ctx context.Context, queryParams map[string]interface{}) (UserB
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagGetMysqlFailed, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagGetMysqlFailed, logMap)
 			return
 		}
-		log.Logger.Infof(consts.DLTagGetMysqlSuccess, log.BuildLogByMap(ctx, logMap))
+		log.InfoMap(ctx, consts.DLTagGetMysqlSuccess, logMap)
 	}()
 
 	tableName := "user_base"
@@ -75,10 +75,10 @@ func InsertUserInfo(ctx context.Context, ubi UserBaseInsert) (err error) {
 	defer func() {
 		if err != nil {
 			logMap[consts.LogErrMsg] = err.Error()
-			log.Logger.Errorf(consts.DLTagInsertMysqlFailed, log.BuildLogByMap(ctx, logMap))
+			log.ErrorMap(ctx, consts.DLTagInsertMysqlFailed, logMap)
 			return
 		}
-		log.Logger.Infof(consts.DLTagInsertMysqlSuccess, log.BuildLogByMap(ctx, logMap))
+		log.InfoMap(ctx, consts.DLTagInsertMysqlSuccess, logMap)
 	}()
 
 	tableName := "user_base"

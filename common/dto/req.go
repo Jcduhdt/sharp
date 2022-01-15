@@ -11,7 +11,6 @@ type RedisSetReq struct {
 	Value      interface{} `json:"value" form:"value" binding:"required"`
 }
 
-
 // login
 type LoginAndRegisterReq struct {
 	NickName string `json:"nick_name" form:"user_name" binding:"required"`

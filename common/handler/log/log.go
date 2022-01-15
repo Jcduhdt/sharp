@@ -21,7 +21,7 @@ func Init() {
 	encoder := zapcore.NewConsoleEncoder(zapcore.EncoderConfig{
 		LevelKey:    "level",                     // 日志级别对应的key名
 		MessageKey:  "msg",                       // 日志内容对应的key名，此参数必须不为空
-		EncodeLevel: zapcore.CapitalLevelEncoder, //大写不带颜色
+		EncodeLevel: zapcore.CapitalLevelEncoder, // 大写不带颜色
 		TimeKey:     "ts",
 		EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 			enc.AppendString(t.Format(time.RFC3339))
@@ -55,7 +55,7 @@ func Init() {
 
 	// 传入 zap.AddCaller() 才会显示打日志点的文件名和行数，使用sugar便于使用printf
 	// 添加zap.AddCallerSkip(1)会打印调用着所在行
-	Logger = zap.New(core, zap.AddCaller()).Sugar()
+	Logger = zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1)).Sugar()
 }
 
 func getWriter(filename string) io.Writer {
@@ -75,14 +75,34 @@ func getWriter(filename string) io.Writer {
 	return hook
 }
 
-func BuildLogByMap(ctx context.Context,params map[string]interface{}) string {
+func DebugMap(ctx context.Context, tag string, logMap map[string]interface{}) {
+	tag += consts.LogTemplateSuffix
+	Logger.Debugf(tag, BuildLogByMap(ctx, logMap))
+}
+
+func InfoMap(ctx context.Context, tag string, logMap map[string]interface{}) {
+	tag += consts.LogTemplateSuffix
+	Logger.Infof(tag, BuildLogByMap(ctx, logMap))
+}
+
+func ErrorMap(ctx context.Context, tag string, logMap map[string]interface{}) {
+	tag += consts.LogTemplateSuffix
+	Logger.Errorf(tag, BuildLogByMap(ctx, logMap))
+}
+
+func FatalMap(ctx context.Context, tag string, logMap map[string]interface{}) {
+	tag += consts.LogTemplateSuffix
+	Logger.Fatalf(tag, BuildLogByMap(ctx, logMap))
+}
+
+func BuildLogByMap(ctx context.Context, params map[string]interface{}) string {
 	var (
 		buffer         bytes.Buffer
 		equalSymbol    = []byte(consts.LogEqualSymbol)
 		paramDelimiter = []byte(consts.LogParamDelimiter)
 	)
 
-	params["traceid"]=ctx.Value("traceid")
+	params["traceid"] = ctx.Value("traceid")
 	for k, v := range params {
 		var val string
 		kind := reflect.ValueOf(v).Kind()

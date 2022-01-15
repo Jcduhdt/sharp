@@ -16,7 +16,7 @@ var (
 	ctx = context.Background()
 )
 
-func init(){
+func init() {
 	env.Init()
 	conf.InitConf(conf.FindConfigDir())
 	log.Init()
@@ -27,7 +27,7 @@ func init(){
 func TestUserBase_GetUserInfo(t *testing.T) {
 	queryParams := map[string]interface{}{
 		"nick_name": "Jcduhdt",
-		"passwd":   util.MD5("123456789"),
+		"passwd":    util.MD5("123456789"),
 	}
 	userInfo, err := GetUserInfo(ctx, queryParams)
 	t.Logf("res = %+v, err = %+v", userInfo, err)
@@ -41,6 +41,6 @@ func TestUserBase_InsertUserInfo(t *testing.T) {
 		Gender:    1,
 		Signature: "你是我唯一想要的了解",
 	}
-	err := InsertUserInfo(ctx,userBaseInsert)
+	err := InsertUserInfo(ctx, userBaseInsert)
 	t.Logf("err = %+v", err)
 }
