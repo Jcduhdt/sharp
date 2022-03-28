@@ -2,6 +2,6 @@
 .statsd/
 /log/
 /conf/production/
-/.environment/
+/.deploy/
 /dao/log/
 /tmp/

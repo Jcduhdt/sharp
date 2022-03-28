@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const envFile = ".environment/service.env.txt"
+const envFile = ".deploy/service.env.txt"
 
 var (
 	cluster = map[string]string{
