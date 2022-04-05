@@ -6,8 +6,19 @@
 2. 如何找到peers  -> 找到tracker
 3. 如何与peers协作完成下载
 
+# Torrent File格式
+- announce:string(tracker url)
+- announce-list:[]string(备用tracker的列表)
+- info:dict(文件具体信息)
+  - name:string
+  - length:int(文件总长度)
+  - pieces:[][20]byte(每个文件片的SHA-1值,无论文件多长都转换为20byte的哈希值，用于校验)
+  - piece length:int(每个文件片的长度)
+  - files:[]dict(多文件时会有这个，下面时没有dict里的结构)
+    - path:string(文件的子路径名)
+    - length:int（长度）
 
-# Bencode协议
+# Bencode协议（序列化协议）
 四种格式
 ## string
 len:data

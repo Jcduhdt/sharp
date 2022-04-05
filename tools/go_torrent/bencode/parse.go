@@ -19,6 +19,7 @@ func Parse(r io.Reader) (*BObject, error) {
     }
 
     var ret BObject
+    // 根据buffer中的第一位判断走什么逻辑
     switch {
     case b[0] >= '0' && b[0] <= '9':
         val, errDe := DecodeString(br)
@@ -35,10 +36,12 @@ func Parse(r io.Reader) (*BObject, error) {
         ret.type_ = BINT
         ret.val_ = val
     case b[0] == 'l':
+        // 处理掉第一位的l
         br.ReadByte()
         var list []*BObject
         for {
             if p, _ := br.Peek(1); p[0] == 'e' {
+                // 处理掉最后一位e，不可能是子元素的e，因为已经在parse里处理完了
                 br.ReadByte()
                 break
             }

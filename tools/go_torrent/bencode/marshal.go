@@ -21,6 +21,7 @@ func Unmarshal(r io.Reader, s interface{}) error {
     switch o.type_ {
     case BLIST:
         list, _ := o.List()
+        // 外面传进来指针指向的slice可能是一个空的slice或者长度与预期的不一致，所以需要内部make，set一下
         l := reflect.MakeSlice(p.Elem().Type(), len(list), len(list))
         p.Elem().Set(l)
         err = unmarshalList(p, list)
@@ -29,6 +30,7 @@ func Unmarshal(r io.Reader, s interface{}) error {
         }
     case BDICT:
         dict, _ := o.Dict()
+        // 可以直接set
         err = unmarshalDict(p, dict)
         if err != nil {
             return err
@@ -40,9 +42,11 @@ func Unmarshal(r io.Reader, s interface{}) error {
 }
 
 func unmarshalList(p reflect.Value, list []*BObject) error {
+    // 保证传入的是指针，类型是slice
     if p.Kind() != reflect.Ptr || p.Elem().Type().Kind() != reflect.Slice {
         return errors.New("dest must be pointer to slice")
     }
+    // 获取指针里的元素，slice
     v := p.Elem()
     if len(list) == 0 {
         return nil
@@ -75,6 +79,7 @@ func unmarshalList(p reflect.Value, list []*BObject) error {
                 return ErrTyp
             }
             lp := reflect.New(v.Type().Elem())
+            // make一个长度和类型与原slice一样的slice
             ls := reflect.MakeSlice(v.Type().Elem(), len(val), len(val))
             lp.Elem().Set(ls)
             err = unmarshalList(lp, val)
@@ -89,6 +94,7 @@ func unmarshalList(p reflect.Value, list []*BObject) error {
             if err != nil {
                 return err
             }
+            // Kind 类型的种类
             if v.Type().Elem().Kind() != reflect.Struct {
                 return ErrTyp
             }
@@ -107,7 +113,9 @@ func unmarshalDict(p reflect.Value, dict map[string]*BObject) error {
     if p.Kind() != reflect.Ptr || p.Elem().Type().Kind() != reflect.Struct {
         return errors.New("dest must be pointer")
     }
+    // 获取元素，struct
     v := p.Elem()
+    // 遍历所有字段
     for i, n := 0, v.NumField(); i < n; i++ {
         fv := v.Field(i)
         if !fv.CanSet() {
@@ -116,8 +124,10 @@ func unmarshalDict(p reflect.Value, dict map[string]*BObject) error {
         ft := v.Type().Field(i)
         key := ft.Tag.Get("bencode")
         if key == "" {
+            // 保证代码顺利执行
             key = strings.ToLower(ft.Name)
         }
+        // 根据上面获得的key获取数据
         fo := dict[key]
         if fo == nil {
             continue
