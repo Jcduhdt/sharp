@@ -51,6 +51,8 @@ func Parse(r io.Reader) (*BObject, error) {
             }
             list = append(list, elem)
         }
+        ret.type_ = BLIST
+        ret.val_ = list
     case b[0] == 'd':
         br.ReadByte()
         dict := make(map[string]*BObject)

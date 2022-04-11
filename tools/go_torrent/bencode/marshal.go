@@ -115,9 +115,11 @@ func unmarshalDict(p reflect.Value, dict map[string]*BObject) error {
     }
     // 获取元素，struct
     v := p.Elem()
-    // 遍历所有字段
+    // 遍历所有字段，NumField获取结构体中的字段数
     for i, n := 0, v.NumField(); i < n; i++ {
+        // 返回目标的第几个字段
         fv := v.Field(i)
+        // CanSet 是否可以更改
         if !fv.CanSet() {
             continue
         }
@@ -160,7 +162,7 @@ func unmarshalDict(p reflect.Value, dict map[string]*BObject) error {
             fv.Set(lp.Elem())
         case BDICT:
 
-            if v.Type().Elem().Kind() != reflect.Struct {
+            if ft.Type.Kind() != reflect.Struct {
                 return ErrTyp
             }
             dp := reflect.New(ft.Type)
