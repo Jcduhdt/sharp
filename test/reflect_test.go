@@ -1,9 +1,9 @@
 package test
 
 import (
-    "fmt"
-    "reflect"
-    "testing"
+	"fmt"
+	"reflect"
+	"testing"
 )
 
 /*
@@ -14,18 +14,18 @@ import (
 */
 
 func TestReflect(t *testing.T) {
-    var testInt interface{} = 3
-    value := reflect.ValueOf(testInt)
-    // 应使用Kind函数判断该interface是什么类型，然后调用对应的方法，否者会panic
-    if value.Kind() == reflect.Int {
-        fmt.Println(value.Int())
-    }
+	var testInt interface{} = 3
+	value := reflect.ValueOf(testInt)
+	// 应使用Kind函数判断该interface是什么类型，然后调用对应的方法，否者会panic
+	if value.Kind() == reflect.Int {
+		fmt.Println(value.Int())
+	}
 
-    var testSlice interface{} = []int{1, 2, 3}
-    sT := reflect.TypeOf(testSlice)
+	var testSlice interface{} = []int{1, 2, 3}
+	sT := reflect.TypeOf(testSlice)
 
-    sT.Len()
-    // Elem 返回类型的元素类型
-    elem := sT.Elem()
-    fmt.Println(elem)
+	sT.Len()
+	// Elem 返回类型的元素类型
+	elem := sT.Elem()
+	fmt.Println(elem)
 }

@@ -2,8 +2,9 @@ package controller
 
 import (
 	"errors"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 	"sharp/common/consts"
 	"sharp/common/dto"
 )
@@ -13,7 +14,7 @@ type BaseController struct {
 
 func (bc *BaseController) ReturnJSon(c *gin.Context, data interface{}, err error) {
 	resp := bc.GetRespByError(err, data)
-	resp.TraceId = c.GetString("traceid")
+	c.Header("sharp-header-rid", c.GetString("traceid"))
 	c.JSON(http.StatusOK, resp)
 }
 

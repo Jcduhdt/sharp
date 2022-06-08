@@ -3,16 +3,17 @@ package middlewares
 import (
 	"bytes"
 	"encoding/json"
+	"io"
+	"io/ioutil"
+	"strings"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
 	"go.uber.org/zap"
-	"io"
-	"io/ioutil"
 	"sharp/common/consts"
 	"sharp/common/dto"
 	"sharp/common/handler/log"
-	"strings"
-	"time"
 )
 
 type BodyLogWriter struct {
@@ -46,16 +47,6 @@ func Logger(logger *zap.SugaredLogger) gin.HandlerFunc {
 		bodyLogWriter := &BodyLogWriter{body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
 		c.Writer = bodyLogWriter
 
-		// 使用下一个中间件
-		c.Next()
-
-		// 载入响应内容
-		responseBody := bodyLogWriter.body.Bytes()
-		response := dto.Response{}
-		if len(responseBody) > 0 {
-			_ = json.Unmarshal(responseBody, &response)
-		}
-
 		logMap := map[string]interface{}{
 			"host":         c.ClientIP(),
 			"user-agent":   c.Request.UserAgent(),
@@ -65,9 +56,23 @@ func Logger(logger *zap.SugaredLogger) gin.HandlerFunc {
 			"proto":        c.Request.Proto,
 			"req_params":   c.Request.URL.RawQuery,
 			"req_body":     string(requestBody),
-			"resp":         response,
-			"cost":         time.Since(start),
 		}
+
+		log.InfoMap(c, consts.DLTagComRequestIn, logMap)
+
+		// 使用下一个中间件
+		c.Next()
+
+		// 载入响应内容
+		responseBody := bodyLogWriter.body.Bytes()
+		response := dto.Response{}
+		if len(responseBody) > 0 {
+			_ = json.Unmarshal(responseBody, &response)
+		}
+		delete(logMap, "req_params")
+		delete(logMap, "req_body")
+		logMap["resp"] = response
+		logMap["cost"] = time.Since(start)
 
 		log.InfoMap(c, consts.DLTagComRequestOut, logMap)
 	}

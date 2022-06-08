@@ -5,11 +5,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"io"
 	"reflect"
-	"sharp/common/consts"
 	"time"
+
+	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
+	"sharp/common/consts"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -70,7 +71,7 @@ func getWriter(filename string) io.Writer {
 	)
 
 	if err != nil {
-		panic(err)
+		panic(any(err))
 	}
 	return hook
 }

@@ -1,8 +1,7 @@
 package dto
 
 type Response struct {
-	Errno   int         `json:"errno"`
-	Errmsg  string      `json:"errmsg"`
-	Data    interface{} `json:"data"`
-	TraceId string      `json:"traceid"`
+	Errno  int         `json:"errno"`
+	Errmsg string      `json:"errmsg"`
+	Data   interface{} `json:"data"`
 }

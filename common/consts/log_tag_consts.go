@@ -16,8 +16,8 @@ const (
 
 	LogTemplateSuffix = "    %s"
 
-	DLTagComRequestIn    = " _com_request_in   %s"
-	DLTagComRequestOut   = " _com_request_out   %s"
+	DLTagComRequestIn    = " _com_request_in"
+	DLTagComRequestOut   = " _com_request_out"
 	DLTagCommonInfo      = " _common_info"
 	DLTagCommonErrorInfo = " _common_error_info"
 
