@@ -2,8 +2,10 @@ package common
 
 import (
 	"errors"
+
 	"github.com/gin-gonic/gin"
 	redigo "github.com/gomodule/redigo/redis"
+
 	"sharp/common/consts"
 	"sharp/common/dto"
 	"sharp/common/handler/log"

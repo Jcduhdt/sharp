@@ -7,9 +7,10 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"sharp/tools/go_torrent/bencode"
 	"strconv"
 	"time"
+
+	"sharp/tools/go_torrent/bencode"
 )
 
 const (

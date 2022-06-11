@@ -10,6 +10,7 @@ import (
 	"time"
 
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
+
 	"sharp/common/consts"
 
 	"go.uber.org/zap"
@@ -71,7 +72,7 @@ func getWriter(filename string) io.Writer {
 	)
 
 	if err != nil {
-		panic(any(err))
+		panic(err)
 	}
 	return hook
 }

@@ -2,9 +2,11 @@ package conf
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
 	"path"
 	"runtime"
+
+	"github.com/spf13/viper"
+
 	"sharp/common/handler/env"
 )
 

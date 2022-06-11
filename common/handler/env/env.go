@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"sharp/common/util"
 	"strings"
+
+	"sharp/common/util"
 )
 
 const envFile = ".deploy/service.env.txt"

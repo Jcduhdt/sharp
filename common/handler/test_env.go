@@ -1,12 +1,13 @@
 package handler
 
 import (
+	"sync"
+
 	"sharp/common/handler/conf"
 	"sharp/common/handler/env"
 	"sharp/common/handler/log"
 	"sharp/common/handler/mysql"
 	"sharp/common/handler/redis"
-	"sync"
 )
 
 var once sync.Once

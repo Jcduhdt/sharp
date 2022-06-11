@@ -2,10 +2,11 @@ package dao
 
 import (
 	"context"
+	"time"
+
 	"sharp/common/consts"
 	"sharp/common/handler/log"
 	"sharp/common/handler/mysql"
-	"time"
 )
 
 type UserBase struct {

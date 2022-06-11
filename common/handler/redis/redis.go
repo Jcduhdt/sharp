@@ -2,12 +2,14 @@ package redis
 
 import (
 	"context"
-	"github.com/gomodule/redigo/redis"
 	"os"
+	"time"
+
+	"github.com/gomodule/redigo/redis"
+
 	"sharp/common/consts"
 	"sharp/common/handler/conf"
 	"sharp/common/handler/log"
-	"time"
 )
 
 var (
